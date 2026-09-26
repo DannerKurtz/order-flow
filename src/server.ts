@@ -27,8 +27,8 @@ server.post("/api/user", async (request, reply) => {
     const createdUserInDatabase = await db.orm.public.User.create({
       id: body.id,
       email: body.email,
-      first_name: body.first_name,
-      last_name: body.last_name,
+      firstName: body.first_name,
+      lastName: body.last_name,
       password: body.password,
     })
     console.log("createdUserInDatabase", createdUserInDatabase)
