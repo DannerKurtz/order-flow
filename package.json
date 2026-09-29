@@ -25,6 +25,7 @@
   "packageManager": "pnpm@12.6.0",
   "type": "module",
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/node": "^26.6.2",
     "nodemon": "^3.1.14",
     "typescript": "^7.0.2"
