@@ -38,6 +38,7 @@
     "fastify": "^5.12.5",
     "pg": "^8.23.0",
     "prisma": "8.0.0-rc.15",
-    "temporal-polyfill": "^1.0.5"
+    "temporal-polyfill": "^1.0.5",
+    "uuid": "^14.0.2"
   }
 }
