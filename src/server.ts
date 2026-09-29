@@ -2,6 +2,7 @@ import fastify from "fastify"
 import "temporal-polyfill/global"
 import { db } from "./database/database.ts"
 import { controller } from "./controller/index.ts"
+import { useCase } from "./use case/index.ts"
 
 const server = fastify()
 
@@ -10,7 +11,8 @@ server.get("/ping", async (request, reply) => {
 })
 
 server.post("/api/user", async (request, reply) => {
-  const createUserController = new controller.user.UserCreateController()
+  const createUserUseCase = new useCase.userUseCase.userCreateUserCase()
+  const createUserController = new controller.user.UserCreateController(createUserUseCase)
   await createUserController.execute(request, reply)
 })
 

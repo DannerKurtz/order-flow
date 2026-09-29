@@ -12,9 +12,10 @@ type CreateUserUseCase = {
 }
 
 export class UserCreateController {
-    // constructor(createUserUseCase: CreateUserUseCase){ 
-    //     // this.createUserUseCase = createUserUseCase;     
-    // }
+  private createUserUseCase: CreateUserUseCase
+    constructor(createUserUseCase: CreateUserUseCase){ 
+        this.createUserUseCase  = createUserUseCase;     
+    }
 
     async execute(httpRequest: any, reply: any): Promise<void> {
         try {
@@ -32,18 +33,11 @@ export class UserCreateController {
       password: string
     }
     console.log("body", body)
-    const createdUserInDatabase = await db.orm.public.User.create({
-      id: body.id,
-      email: body.email,
-      firstName: body.first_name,
-      lastName: body.last_name,
-      password: body.password,
-    })
-    console.log("createdUserInDatabase", createdUserInDatabase)
-
+    
+    const createdUser = await this.createUserUseCase.execute(body)
     reply.status(201).send({
       message: "User created successfully",
-      user: createdUserInDatabase,
+      user: createdUser
     })
   } catch (error) {
     console.error("Error creating user:", error)
