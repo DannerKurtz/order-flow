@@ -17,9 +17,15 @@ export class UserCreateUseCase {
             throw new Error("User with this email already exists")
         }
         const hasedPassword = await bcrypt.hash(data.password, saltGenerated)
+        const userData = {
+            id: idGenerated,
+            name: data.name,
+            email: data.email,
+            password: hasedPassword,
+        }
 
-        const createdUserInDatabase = this.userCreateRepository.execute(data)
-    console.log("createdUserInDatabase", createdUserInDatabase)
+        const createdUserInDatabase = this.userCreateRepository.execute(userData)
+        console.log("createdUserInDatabase", createdUserInDatabase)
     return createdUserInDatabase
     }
 }
