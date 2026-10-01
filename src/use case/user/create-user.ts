@@ -19,12 +19,13 @@ export class UserCreateUseCase {
         const hasedPassword = await bcrypt.hash(data.password, saltGenerated)
         const userData = {
             id: idGenerated,
-            name: data.name,
+            firstName: data.first_name,
+            lastName: data.last_name,
             email: data.email,
             password: hasedPassword,
         }
 
-        const createdUserInDatabase = this.userCreateRepository.execute(userData)
+        const createdUserInDatabase = await this.userCreateRepository.execute(userData)
         console.log("createdUserInDatabase", createdUserInDatabase)
     return createdUserInDatabase
     }
