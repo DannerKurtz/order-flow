@@ -1,11 +1,10 @@
-import { db } from "../../database/database.ts";
-
-
 
 export class GetUserUseCase {
     private getUserByIdRepository: any;
-    constructor(getUserByIdRepository: any){
+    private getUserByEmailRepository: any;
+    constructor(getUserByIdRepository: any, getUserByEmailRepository: any){
         this.getUserByIdRepository = getUserByIdRepository
+        this.getUserByEmailRepository = getUserByEmailRepository
     }
 
     async execute(params: { id: string; email: string }): Promise<any> {
@@ -16,7 +15,7 @@ export class GetUserUseCase {
             return getUserById      
         }
         else if (email){
-            const getUserByEmail = await db.orm.public.User.where({email: email}).first()
+            const getUserByEmail = await this.getUserByEmailRepository.execute(email)
             return getUserByEmail
         }
         else{
