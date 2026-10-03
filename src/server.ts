@@ -23,7 +23,9 @@ server.post("/api/user", async (request, reply) => {
 })
 
 server.get<{Querystring: UserQuery}>("/api/user", async (request, reply) => {
-  
+  const getUserUseCase = new useCase.userUseCase.getUserUseCase()
+  const getUserController = new controller.user.getUserController(getUserUseCase)
+  await getUserController.execute(request, reply)
 })
 
 server.listen({ port: 4008 }, (err, address) => {
