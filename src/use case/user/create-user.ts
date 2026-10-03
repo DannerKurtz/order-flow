@@ -4,12 +4,14 @@ import { v4 as uuidv4 } from 'uuid';
 import bcrypt from "bcrypt"
 export class UserCreateUseCase {
     private userCreateRepository: UserCreateRepository
-    constructor(userCreateRepository: UserCreateRepository) {
+    private getUserByEmailRepository: any
+    constructor(userCreateRepository: UserCreateRepository, getUserByEmailRepository: any) {
         this.userCreateRepository = userCreateRepository
+        this.getUserByEmailRepository = getUserByEmailRepository
     }
     async execute(data: any): Promise<any> {
 
-        const userExists = await db.orm.public.User.where({email: data.email}).first()
+        const userExists = await this.getUserByEmailRepository.execute(data.email)
         const saltRounds = 10
         const saltGenerated = await bcrypt.genSalt(saltRounds)
         const idGenerated = uuidv4()
