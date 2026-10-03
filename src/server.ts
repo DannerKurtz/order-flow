@@ -18,7 +18,7 @@ server.get("/ping", async (request, reply) => {
 server.post("/api/user", async (request, reply) => {
   const userCreateRepository = new repository.userRepository.userCreateRepository()
   const createUserUseCase = new useCase.userUseCase.userCreateUserCase(userCreateRepository)
-  const createUserController = new controller.user.UserCreateController(createUserUseCase)
+  const createUserController = new controller.user.userCreateController(createUserUseCase)
   await createUserController.execute(request, reply)
 })
 
