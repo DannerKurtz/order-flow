@@ -8,9 +8,8 @@ export class GetUserController {
 
     async execute(request:any, reply:any): Promise<any> {
         try {
-            const { id, email }: { id: string; email: string } = request.query
 
-            const userData = await this.getUserUseCase.execute({ id, email })
+            const userData = await this.getUserUseCase.execute(request.query    )
 
             return reply.status(200).send(userData)
         } catch (error) {

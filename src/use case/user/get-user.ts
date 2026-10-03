@@ -1,4 +1,5 @@
 
+
 export class GetUserUseCase {
     private getUserByIdRepository: any;
     private getUserByEmailRepository: any;
