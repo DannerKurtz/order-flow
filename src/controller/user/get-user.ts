@@ -1,3 +1,4 @@
+import type { GetUserUseCase } from "../../use case/user/get-user.ts";
 
 export class GetUserController {
     private getUserUseCase: GetUserUseCase
