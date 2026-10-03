@@ -24,7 +24,8 @@ server.post("/api/user", async (request, reply) => {
 
 server.get<{Querystring: UserQuery}>("/api/user", async (request, reply) => {
   const getUserByIdRepository = new repository.userRepository.getUserByIdRepository()
-  const getUserUseCase = new useCase.userUseCase.getUserUseCase(getUserByIdRepository)
+  const getUserByEmailRepository = new repository.userRepository.getUserByEmailRepository()
+  const getUserUseCase = new useCase.userUseCase.getUserUseCase(getUserByIdRepository, getUserByEmailRepository)
   const getUserController = new controller.user.getUserController(getUserUseCase)
   await getUserController.execute(request, reply)
 })
