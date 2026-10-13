@@ -31,6 +31,14 @@ server.get<{Querystring: UserQuery}>("/api/user", async (request, reply) => {
   await getUserController.execute(request, reply)
 })
 
+server.patch("/api/user/:id", async (request, reply) => {
+  const getUserByEmailRepository = new repository.userRepository.getUserByEmailRepository()
+  const updateUserByIdRepository = new repository.userRepository.updateUserByIdRepository()
+  const updateUserUseCase = new useCase.userUseCase.updateUserUseCase(getUserByEmailRepository, updateUserByIdRepository)
+  const updateUserController = new controller.user.updateUserController(updateUserUseCase)
+  await updateUserController.execute(request, reply)
+})
+
 server.listen({ port: 4008 }, (err, address) => {
   if (err) {
     console.error(err)
