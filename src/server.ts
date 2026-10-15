@@ -39,6 +39,13 @@ server.patch("/api/user/:id", async (request, reply) => {
   await updateUserController.execute(request, reply)
 })
 
+server.delete("/api/user/:id", async (request, reply) => {
+  const getUserByIdRepository = new repository.userRepository.getUserByIdRepository()
+  const updateUserByIdRepository = new repository.userRepository.updateUserByIdRepository()
+  const deleteUserByIdUseCase = new useCase.userUseCase.deleteUserByIdUseCase(getUserByIdRepository, updateUserByIdRepository)
+  const deleteUserByIdController = new controller.user.deleteUserByIdController(deleteUserByIdUseCase)
+  await deleteUserByIdController.execute(request, reply)
+})
 server.listen({ port: 4008 }, (err, address) => {
   if (err) {
     console.error(err)
